@@ -21,6 +21,9 @@ public class Test {
 		// Création de l'objet
 		BufferedImage test = new BufferedImage(50,50,BufferedImage.TYPE_INT_BGR);
 		Image image = new Image(test);
+		
+		
+		//Ecriture dans un fichier
 		oos.writeObject(image);
 		oos.flush();
 		oos.close();
