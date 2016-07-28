@@ -11,24 +11,12 @@ public class Test {
 
 	public static void main(String[] args) throws FileNotFoundException, IOException {
 		
-		FileOutputStream fileOut =
-		         new FileOutputStream("image.serial");
+		Image image = new Image(new File("d:Amulet.jpg"));
+		image.sauvegarderImage();
+		System.out.print(image.getImage().toString());
+		image.importImage("d:Amulet.jpg");
+		System.out.print(image.getImage().toString());
 		
-		
-		ObjectOutputStream oos =  new ObjectOutputStream(fileOut) ;
-		
-		
-		// Création de l'objet
-		BufferedImage test = new BufferedImage(50,50,BufferedImage.TYPE_INT_BGR);
-		Image image = new Image(test);
-		
-		
-		//Ecriture dans un fichier
-		oos.writeObject(image);
-		oos.flush();
-		oos.close();
-		fileOut.close();
-        
 	}
 
 }
