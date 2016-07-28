@@ -2,28 +2,29 @@
 
 package modele;
 
-import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.Scanner;
+import java.util.Observable;
+
 
 import javax.imageio.ImageIO;
 
 
 
 
-public class Image implements Serializable {
+public class Image implements Serializable, Observer{
 
 	
 	private static final long serialVersionUID = -984752116648850748L;
 	private transient BufferedImage image;
 	private int coordonneeX = 0;
 	private int coordonneeY = 0;
+	private Scanner sc = new Scanner(System.in);
 	
 	
 /*****************
@@ -36,8 +37,7 @@ public class Image implements Serializable {
 		setImage(ImageIO.read(image));
 		}
 
-	
-	
+
 	
 /*****************
 *
@@ -51,6 +51,24 @@ public BufferedImage getImage() {
 public void setImage(BufferedImage image) {
 	this.image = image;
 }
+
+public int getCoordonneeX() {
+	return coordonneeX;
+}
+
+public void setCoordonneeX(int coordonneeX) {
+	this.coordonneeX = coordonneeX;
+}
+
+public int getCoordonneeY() {
+	return coordonneeY;
+}
+
+public void setCoordonneeY(int coordonneeY) {
+	this.coordonneeY = coordonneeY;
+}
+
+
 /*****************
 *
 *	Méthodes
@@ -69,7 +87,6 @@ public void importImage(String image) throws IOException {
 public void sauvegarderImage() throws IOException{
 	
 	
-	Scanner sc = new Scanner(System.in);
 	System.out.println("Veuillez saisir le nom du fichier de destination :");
 	String fileName = sc.nextLine();
 	
@@ -84,9 +101,19 @@ public void sauvegarderImage() throws IOException{
 	//Ecriture dans un fichier
 	oos.writeObject(this);
 	oos.flush();
+	
+	// Vidage de la mémoire
 	oos.close();
 	fileOut.close();
 
 }
 
+// Méthode qui donne le choix du fichier source de l'image a charger
+public void ouvrirImage() throws IOException {
+	System.out.println("Veuillez choisir le fichier source :");
+	String fileName = sc.nextLine();
+	File image = new File(fileName);
+	new Image(image);
+
+}
 }
