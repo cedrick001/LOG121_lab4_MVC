@@ -17,14 +17,14 @@ import javax.imageio.ImageIO;
 
 
 
-public class Image implements Serializable, Observer{
+public class Image extends Observable implements Serializable {
 
 	
 	private static final long serialVersionUID = -984752116648850748L;
 	private transient BufferedImage image;
 	private int coordonneeX = 0;
 	private int coordonneeY = 0;
-	private Scanner sc = new Scanner(System.in);
+	
 	
 	
 /*****************
@@ -35,6 +35,8 @@ public class Image implements Serializable, Observer{
 ********/
 	public Image (File image) throws IOException{
 		setImage(ImageIO.read(image));
+		setChanged();
+		notifyObservers(image);
 		}
 
 
@@ -71,8 +73,8 @@ public void setCoordonneeY(int coordonneeY) {
 
 /*****************
 *
-*	Méthodes
- * @throws IOException 
+*	METHODES
+*	@throws IOException 
 * 
 ***************/
 
@@ -82,11 +84,16 @@ public void importImage(String image) throws IOException {
 }
 
 
-
+/*****************
+*
+*	Permet la sauvegarde de l'image en fichier .serial
+* 	@throws IOException 
+* 
+***************/
 
 public void sauvegarderImage() throws IOException{
 	
-	
+	Scanner sc = new Scanner(System.in);
 	System.out.println("Veuillez saisir le nom du fichier de destination :");
 	String fileName = sc.nextLine();
 	
@@ -110,6 +117,7 @@ public void sauvegarderImage() throws IOException{
 
 // Méthode qui donne le choix du fichier source de l'image a charger
 public void ouvrirImage() throws IOException {
+	Scanner sc = new Scanner(System.in);
 	System.out.println("Veuillez choisir le fichier source :");
 	String fileName = sc.nextLine();
 	File image = new File(fileName);

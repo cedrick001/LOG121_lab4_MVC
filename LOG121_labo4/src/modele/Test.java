@@ -12,10 +12,11 @@ public class Test {
 	public static void main(String[] args) throws FileNotFoundException, IOException {
 		
 		Image image = new Image(new File("d:Amulet.jpg"));
-		image.sauvegarderImage();
-		System.out.print(image.getImage().toString());
-		image.importImage("d:Amulet.jpg");
-		System.out.print(image.getImage().toString());
+		
+		System.out.println(image.getImage().getHeight());
+		System.out.println(image.getImage().getWidth());
+		//image.importImage("d:Amulet.jpg");
+
 		
 	}
 
